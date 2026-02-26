@@ -252,6 +252,11 @@
             <div class="total-days-number" id="total-days">0</div>
             <div class="total-days-label">Dias corridos restantes</div>
         </div>
+
+        <div class="total-days" style="margin-top: 16px; background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(192, 132, 252, 0.15));">
+            <div class="total-days-number" id="weekends">0</div>
+            <div class="total-days-label">Finais de semana restantes</div>
+        </div>
     </div>
 
     <script>
@@ -304,6 +309,25 @@
                 months += 12;
             }
 
+            // Total de finais de semana (Sábados e Domingos como uma unidade)
+            let totalWeekends = 0;
+            let currentDay = new Date(now.getTime());
+            
+            // Avança para o próximo sábado se não for sábado ainda, ou para o próprio sábado
+            while (currentDay < targetDate) {
+                if (currentDay.getDay() === 6) { // 6 = Sábado
+                    // Verifica se o domingo também está antes da data alvo (para contar o fds completo)
+                    const sunday = new Date(currentDay);
+                    sunday.setDate(sunday.getDate() + 1);
+                    if (sunday < targetDate) {
+                        totalWeekends++;
+                    }
+                    currentDay.setDate(currentDay.getDate() + 7); // Pula pro próximo sábado
+                } else {
+                    currentDay.setDate(currentDay.getDate() + 1);
+                }
+            }
+
             // Atualiza DOM
             document.getElementById('years').innerText = years;
             document.getElementById('months').innerText = months;
@@ -315,6 +339,7 @@
             document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
 
             document.getElementById('total-days').innerText = totalDaysRemaining.toLocaleString('pt-BR');
+            document.getElementById('weekends').innerText = totalWeekends.toLocaleString('pt-BR');
 
             // Pluralização
             document.getElementById('years-label').innerText = years === 1 ? 'Ano' : 'Anos';
