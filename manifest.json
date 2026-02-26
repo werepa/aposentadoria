@@ -1,0 +1,21 @@
+{
+  "name": "Contagem Aposentadoria",
+  "short_name": "Aposentar",
+  "description": "Contagem regressiva até a data da aposentadoria em 21/11/2028.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
